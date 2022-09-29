@@ -26,6 +26,7 @@
                     <td><input class="btn login_btn" type="submit" value="Login"></td>
                 </tr> -->
             </table>
+            <input class="btn login_btn" type="submit" value="Login"><a href="{% url 'wishlist:show_wishlist' %}"></a>
             </form>
             {% if messages %}
             <ul>
@@ -34,7 +35,6 @@
                 {% endfor %}
             </ul>
             {% endif %}    
-            <button><a href="{% url 'wishlist:show_wishlist' %}">Login</a></button>
             <p>Belum mempunyai akun? <a href="{% url 'wishlist:register' %}">Buat Akun</a></p>
         </div>
     </body>

@@ -7,13 +7,17 @@
         <title>Register</title>
     </head>
     <body>
-        <div class = "register">
+        <div class = "register d-flex justify-content-center align-items-center;">
             <h2>Formulir Registrasi</h2>  
                 <form method="POST">  
                     {% csrf_token %}  
                     <table align="center" style="padding-top:0px;">  
                         {{ form.as_table }}  
-                    </table>  
+                    </table> 
+                </div>
+                <div class="rapper">
+                    <input class="btn register_btn" type="submit" value="Daftar"><a href="{% url 'wishlist:login' %}"></a> 
+                </div>
                 </form>
             {% if messages %}  
                 <ul>   
@@ -23,16 +27,12 @@
                 </ul>   
             {% endif %}
         </div>  
-        <div class="d-flex justify-content-center text-align:center;">
-            <button><a href="{% url 'wishlist:login' %}">Daftar</a></button>
-        </div>
     </body>
 </html> 
 
 <style>
     body {
         background-color: #bfdbd2;
-        text-align: center;
     }
     body h2 {
         text-align: center;
@@ -44,5 +44,8 @@
     }
     input {
         text-align: left;
+    }
+    .rapper {
+        text-align:center;
     }
 </style>
