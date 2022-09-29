@@ -13,7 +13,6 @@
                     {% csrf_token %}  
                     <table align="center" style="padding-top:0px;">  
                         {{ form.as_table }}  
-                        <td><input style="text-align:center;" type="submit" name="submit" value="Daftar"/></td>    
                     </table>  
                 </form>
             {% if messages %}  
@@ -24,6 +23,9 @@
                 </ul>   
             {% endif %}
         </div>  
+        <div class="d-flex justify-content-center text-align:center;">
+            <button><a href="{% url 'wishlist:login' %}">Daftar</a></button>
+        </div>
     </body>
 </html> 
 
@@ -42,8 +44,5 @@
     }
     input {
         text-align: left;
-    }
-    .register ul {
-        padding-top:0px;
     }
 </style>
