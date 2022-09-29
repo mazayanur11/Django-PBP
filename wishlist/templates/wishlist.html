@@ -1,27 +1,75 @@
-{% extends 'base.html' %}
+<!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="print.css" media="print">
+        <title>Wishlist</title>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><h5>Nama: {{nama}}</h5></li>
+                <li><button><a href="{% url 'wishlist:logout' %}">Logout</a></button></li>
+            </ul>
+        </nav> 
+        <div class="non-header">
+            <table border="1" align="center">
+                <tr>
+                <th>Nama Barang</th>
+                <th>Harga Barang</th>
+                <th>Deskripsi</th>
+                </tr>
+                {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+                {% for barang in list_barang %}
+                <tr>
+                    <th>{{barang.nama_barang}}</th>
+                    <th>{{barang.harga_barang}}</th>
+                    <th>{{barang.deskripsi}}</th>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="footer">
+            <h5>Sesi terakhir login: {{ last_login }}</h5>
+        </div>
+    </body>
+</html>
 
-{% block content %}
-<h5>Nama: </h5>
-<b>{{nama}}</b>
-
-<table>
-    <tr>
-    <th>Nama Barang</th>
-    <th>Harga Barang</th>
-    <th>Deskripsi</th>
-    </tr>
-    {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
-    {% for barang in list_barang %}
-    <tr>
-        <th>{{barang.nama_barang}}</th>
-        <th>{{barang.harga_barang}}</th>
-        <th>{{barang.deskripsi}}</th>
-    </tr>
-    {% endfor %}
-</table>
-
-<h5>Sesi terakhir login: {{ last_login }}</h5>
-
-<button><a href="{% url 'wishlist:logout' %}">Logout</a></button>
-
-{% endblock content %}
+<style>
+    nav {
+        margin:auto;
+        text-align: center;
+        width: 100%;
+        font-size: 20px;
+        padding: auto;
+    }
+    nav ul {
+        background: white;
+        list-style: none;
+        display: inline-table;
+        width: 100%;
+    }
+    nav ul li h5{
+        margin:35px 0px;
+        float:left;
+    }
+    nav ul li button{
+     	color: #fff;
+        float:right;
+        margin:30px 80px;
+    }
+    body {
+        background-color: #bfdbd2;
+        margin:auto;
+    }
+    .non-header {
+        margin: 10px;
+    }
+    .footer {
+        text-align: center;
+    }
+    table {
+        background-color: white;
+    }
+</style>
