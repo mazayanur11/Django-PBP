@@ -1,0 +1,296 @@
+<!-- <!doctype html>
+    <html lang="en">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="print.css" media="print">
+        <title>Wishlist</title>
+        <script>
+            function loadData() {
+                            $.get("{% url 'wishlist:show_json' %}", function (data) {
+                tab = `<tr>
+                        <th>Nama Barang</th>
+                        <th>Harga Barang</th>
+                        <th>Deskripsi</th>
+                    </tr>`;
+
+                for (let item of data) {
+                    tab += `<tr> 
+                    <td>${item.fields.nama_barang} </td>
+                    <td>${item.fields.harga_barang}</td>
+                    <td>${item.fields.deskripsi}</td> 
+                    </tr>`;}
+
+                document.getElementById("tbl").innerHTML = tab;
+                });
+            }
+
+            $(document).ready(function () {
+                loadData();
+            });
+
+            $(document).on("submit", "#formtable", function (e) {
+                e.preventDefault();
+                $.ajax({
+                type: "POST",
+                url: "wishlist.html",
+                data: {
+                    nama_barang: $("#items_name").val(),
+                    harga_barang: $("#items_pr").val(),
+                    deskripsi: $("#items_descrip").val(),
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+                dataType: "json",
+                success: function () {
+                    loadData();
+                },
+                });
+            });
+        </script>  
+    </head>
+    <body>
+        <script>
+            function yaa() {
+                if (localStorage.clickcount) {
+                    localStorage.clickcount = Number(localStorage.clickcount)+1;
+                } else {
+                    localStorage.clickcount = 1;
+                }
+            }
+        </script>
+        <nav>
+            <ul>
+                <li><h5>Nama: {{nama}}</h5></li>
+                <li><button><a href="{% url 'wishlist:logout' %}">Logout</a></button></li>
+            </ul>
+        </nav> 
+        <form method="POST" action="">
+            {% csrf_token %}
+            <h1 class="h1 mb-3 fw-semibold">INPUT</h1>
+    
+            <div class="form-floating">
+                <label for="Nama Barang">Nama Barang</label>
+                <input type="nama" class="form-control" id="Nama Barang" placeholder="Nama Barang" name="Nama Barang">
+            </div>
+            <div class="form-floating">
+                <label for="Harga Barang">Harga Barang</label>
+                <input type="harga" class="form-control" id="Harga Barang" placeholder="Harga Barang" name="Harga Barang">
+            </div>
+            <div class="form-floating">
+                <label for="Deskripsi">Deskripsi</label>
+                <input type="deskripsi" class="form-control" id="Deskripsi" placeholder="Deskripsi" name="Deskripsi">
+            </div>
+            <button type="button" onclick="yaa()">Submit</button>
+    
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="text-muted">{{ message }}</p>
+                {% endfor %}
+            {% endif %}                
+        </form>  
+        <div class="non-header">
+            <table border="1" align="center">
+                <tr>
+                <th>Nama Barang</th>
+                <th>Harga Barang</th>
+                <th>Deskripsi</th>
+                </tr>
+                {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+                {% for barang in list_barang %}
+                <tr>
+                    <th>{{barang.nama_barang}}</th>
+                    <th>{{barang.harga_barang}}</th>
+                    <th>{{barang.deskripsi}}</th>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="footer">
+            <h5>Sesi terakhir login: {{ last_login }}</h5>
+        </div>
+    </body>
+</html>
+
+<style>
+    nav {
+        margin:auto;
+        text-align: center;
+        width: 100%;
+        font-family: arial;
+    }
+
+    nav ul {
+        background: white;
+        padding: auto;
+        list-style: none;
+        position: relative;
+        display: inline-table;
+        width: 100%;
+    }
+
+    nav ul li h5{
+        float:left;
+    }
+
+    nav ul li button{
+     	color: #fff;
+        float:right;
+        padding:auto;
+        margin-top:20px;
+        margin-right:60px;
+    }
+
+    body {
+        background-color: #bfdbd2;
+        margin:auto;
+        text-align: center;
+    }
+
+    .non-header {
+        margin: 10px;
+    }
+
+    .footer {
+        margin:20px;
+        text-align:center;
+    }
+
+    table {
+        background-color: white;
+    }
+
+    form {
+      padding: 25px;
+      text-align: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    form .form-floating:focus-within {
+      z-index: 1;
+    }
+
+    form input[type="nama"] {
+      margin-bottom: 5px;
+    }
+
+    form input[type="harga"] {
+      margin-bottom: 5px;
+    }
+
+    form input[type="deskripsi"] {
+      margin-bottom: 5px;
+    }
+</style> -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wishlist</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+    <nav class="navbar navbar-expand-lg bg-warning">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">{{nama}}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="nav-link" href="{% url 'wishlist:logout' %}">Logout</a>
+        </div>
+    </nav>
+    <div class="d-flex justify-content-center">
+
+    </div>
+
+    <table class="table-striped-columns table-bordered d-flex justify-content-center" id="tbl">
+    </table>
+    <h5 class="d-flex justify-content-center">Sesi terakhir login: {{ last_login }}</h5>
+
+    <div>
+      <form method="POST" action="" id="formtable" class="d-flex justify-content-center p-2  ">
+        <div class="bg-danger d-flex justify-content-center p-2 rounded-2 p-3">
+          {% csrf_token %}
+          <table>
+            <tr>
+                <td>Nama Barang: </td>
+                <td><input type="text" name="items" placeholder="Nama Barang" class="form-control" id="items_name"></td>
+            </tr>
+            <tr>
+                <td>Harga Barang: </td>
+                <td><input type="text" name="items_price" placeholder="Harga Barang" class="form-control" id="items_pr"></td>
+            </tr>
+            <tr>
+                <td>Deskripsi: </td>
+                <td><input type="text" name="items_desc" placeholder="Deskripsi" class="form-control" id="items_descrip"></td>
+            </tr>
+            
+            
+            </table>
+            <button onclick="clickCounter()" type="submit" id="masuk" class="btn border rounded bg-info mx-2">Tambah</button>
+        </div>
+      
+        
+      </form>
+     </div> 
+  </body>
+</html>
+    
+<script>
+
+let tab;
+  function loadData() {
+    $.get("{% url 'wishlist:show_json' %}", function (data) {
+      tab = `<tr>
+            <th>Nama Barang</th>
+            <th>Harga Barang</th>
+            <th>Deskripsi</th>
+          </tr>`;
+
+      for (let item of data) {
+        tab += `<tr> 
+        <td>${item.fields.nama_barang} </td>
+        <td>${item.fields.harga_barang}</td>
+        <td>${item.fields.deskripsi}</td> 
+        </tr>`;}
+
+    document.getElementById("tbl").innerHTML = tab;
+    });
+  }
+
+  $(document).ready(function () {
+    loadData();
+  });
+
+  $(document).on("submit", "#formtable", function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "{% url 'wishlist:form' %}",
+      data: {
+        nama_barang: $("#items_name").val(),
+        harga_barang: $("#items_pr").val(),
+        deskripsi: $("#items_descrip").val(),
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+      },
+      dataType: "json",
+      success: function () {
+        loadData();
+      },
+    });
+  });
+
+  function clickCounter() {
+    if (localStorage.clickcount) {
+        localStorage.clickcount = Number(localStorage.clickcount)+1;
+    } else {
+        localStorage.clickcount = 1;
+    }
+}
+</script>
